@@ -1,0 +1,6 @@
+applications:
+- name: spring-boot-ascend-membership
+  path: target/gs-spring-boot-0.1.0.jar
+  domain: cfapps.io
+  memory: 630M
+  instances: 1

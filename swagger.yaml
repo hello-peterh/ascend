@@ -1,0 +1,132 @@
+swagger: "2.0"
+info:
+  description: ""
+  version: "1.0.0"
+  title: "Membership"
+host: "member.swagger.io"
+basePath: "/v2"
+schemes:
+- "https"
+- "http"
+paths:
+  /members:
+    get:
+      summary: "returns a list of members"
+      produces:
+        -application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Member'
+        '500':
+          description: Internal Server Error
+          schema:
+            type: string
+            
+  /member:
+    post:
+      summary: "Add a new member to the store"
+      description: ""
+      consumes:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "Member data"
+        description: "Member object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/Member"
+      responses:
+        200:
+          description: "Successful"
+        400:
+          description: "Invalid input"
+          
+  /member/{memberId}:
+    get:
+      summary: "Find member by ID"
+      description: "Returns a single member"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "memberId"
+        in: "path"
+        description: "ID of member to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Member"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "member not found"
+    put:
+      description: "Update member information"
+      consumes:
+      - "application/json"
+      parameters:
+      - name: "MemberId"
+        in: "path"
+        description: "MemberId of the member info that needs to be updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "Member info"
+        in: "body"
+        description: "Updated member info"
+        required: true
+        schema:
+          $ref: '#/definitions/Member'
+      responses:
+        "200":
+          description: "Member updated successfully"
+        "400":
+          description: "Invalid input"
+    delete:
+      description: "Deletes a member"
+      parameters:
+      - name: "MemberId"
+        in: "path"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "Member successfully deleted"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Member not found"
+
+definitions:
+
+  Member:
+    type: "object"
+    required:
+    - "name"
+    - "photoUrls"
+    properties:
+      id:
+        type: "integer"
+      category:
+        $ref: "#/definitions/Category"
+      firstname:
+        type: "string"
+        example: "doggie"
+      lastname:
+        type: string
+      address:
+        type: string
+      ethnicity:
+        type: string
+      interests:
+        type: "array"
+        items:
+          type: string
