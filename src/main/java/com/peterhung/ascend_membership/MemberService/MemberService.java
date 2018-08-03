@@ -29,9 +29,9 @@ public class MemberService{
     }
 
     public Optional<Member> getMemberById(long id) {
-    	//try:
+  
     	return this.memberRepo.findById(id);
-    	//catch:
+ 
     }
 
     public void removeMemberById(long id) {
@@ -45,20 +45,12 @@ public class MemberService{
 
     public void insertMember(Member member){
     	this.memberRepo.save(member);
-    	//this.memberRepo.save(member.setInterests(convertToString(member.getInterests())); //doesn't work because it is a string[]
     	
     }
 
 	public void addAll(List<Member> memberList) {
 		this.memberRepo.saveAll(memberList);
 		
-	}
-	
-	public String convertToString(String[] interests) {
-		
-		String str = Arrays.toString(interests);
-		
-		return str;
 	}
 
 }
